@@ -11,17 +11,17 @@ it directly updates your local files
 ## resolve a Git merge conflict (example scenario).
 me and your teammate are working on the same file:index.html
 my version (local branch):
-<h1>Welcome to my Website</h1>
+< h1 >Welcome to my Website</h1>
 Teammate version (remote branch):
-<h1>Hello! This is our Website</h1>
+< h1 >Hello! This is our Website</h1>
 When i run:
 git pull
 Inside the file, Git marks the conflict like this:
 
 <<<<<<< HEAD
-<h1>Welcome to my Website</h1>
+< h1 >Welcome to my Website</h1>
 =======
-<h1>Hello! This is our Website</h1>
+< h1 >Hello! This is our Website</h1>
 >>>>>>> origin/main
 
 
