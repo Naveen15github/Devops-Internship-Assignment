@@ -127,9 +127,137 @@ So we only manage:
 Worker nodes
 Deployments/Pods/Services
 
+How the pipeline changes for Kubernetes deployment
+If we want to deploy to Kubernetes after building the image, we need to extend the pipeline by:
+Installing kubectl so the workflow can communicate with the Kubernetes cluster.
+Adding authentication using kubeconfig or cloud credentials (EKS/IAM).
+Running deploy commands such as:
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+Optionally using tools like helm, kustomize, or ArgoCD for advanced deployment.
+Basically the pipeline goes from:
+Build → Test → Push
+to:
+Build → Test → Push → Deploy to Kubernetes
+
+### Difference between Metrics, Logs, and Traces
+Metrics
+Metrics are numerical values that show the health or performance of a system
+Examples:
+CPU usage = 75%
+Memory usage = 1.2GB
+Requests per second = 120
+Simple meaning:
+Metrics = numbers that tell how your system is performing.
+
+Logs
+Logs are text messages your application or system prints.
+They tell you what happened.
+Examples:
+“Database connection failed”
+“User logged in”
+“Pod restarted due to error”
+Simple meaning:
+Logs = text messages that explain events and errors.
+
+Traces
+Traces show the path of a request as it moves through multiple services.
+Very useful in microservices.
+Example:
+User request → API → Auth Service → DB → Response
+
+If my Kubernetes Pod crashes — how to debug it
+Use these commands + reasoning:
+
+1. Check pod status
+kubectl get pods
+Reason:
+Shows whether the pod is running, pending, or crashlooping.
+
+2. Describe the pod
+kubectl describe pod <pod-name>
+Reason:
+Gives detailed info:
+
+Events
+Errors
+Image pull issue?
+CrashLoopBackOff reason?
+
+3. Check logs of the pod
+kubectl logs <pod-name>
+If multi-container:
+kubectl logs <pod-name> -c <container-name>
+Reason:
+Shows application errors like:
+
+Port already in use
+Missing environment variables
+Python/Java exceptions
+
+4. Check previous crashed logs
+kubectl logs <pod-name> --previous
+Reason:
+Shows logs from the container that crashed before restarting.
+
+5. Get events from namespace
+kubectl get events --sort-by=.metadata.creationTimestamp
+Reason:
+Shows scheduling failures, OOM errors, image pull errors, etc.
+
+6. Exec into the pod (if it's still running)
+kubectl exec -it <pod-name> -- /bin/bash
+Reason:
+To manually inspect files, configs, environment variables.
+
+Recommended Monitoring Tools for AWS EKS and Why
+1. Prometheus
+Best open-source monitoring for Kubernetes.
+Collects metrics from
+Pods
+Nodes
+Deployments
+Cluster components
+Why?
+Kubernetes-native, powerful, widely used.
+
+2. Grafana
+Used for visualizing metrics collected by Prometheus.
+Dashboards for:
+CPU
+Memory
+Pod restarts
+Why?
+Beautiful dashboards + easy to understand for teams.
+
+3. CloudWatch (AWS Native)
+Comes built-in with AWS.
+Stores:
+Logs
+Metrics
+Alarms
+Why?
+Easy integration with EKS, no extra infra needed.
+
+4. ELK Stack (Elasticsearch, Logstash, Kibana)
+Used mainly for log analysis.
+Why?
+Great for deep searching and filtering logs.
+
+5. AWS X-Ray
+
+Used for tracing requests in microservices.
+Why?
+Helps find slow services and request bottlenecks.
 
 
-
+Fetch the code from GitHub and add a Dockerfile
+Build and test the Docker image locally.
+Push the image to AWS ECR.
+Create Kubernetes YAML manifests (Deployment + Service).
+Deploy the microservice to AWS EKS using kubectl.
+Set up GitHub Actions to auto-build, test, push, and deploy on every merge to main.
+Configure logging using CloudWatch or ELK so the dev team can easily view logs.
 
 
 
