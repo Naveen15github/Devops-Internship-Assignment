@@ -1,6 +1,6 @@
 # Devops-Internship-Assignment
 ## Github repo with ssh authentication
-![alt text](image-name.png)
+![alt text](https://github.com/Naveen15github/Devops-Internship-Assignment/blob/092652fa889caa9384917484720e34f51aec8f81/Screenshot%20(136).png)
 
 ## git fetch
 Downlods the latest changes from the remote repository
@@ -86,7 +86,48 @@ Use a .dockerignore file to ignore unwanted files
 Use no cache when installing packages
 Use multi-stage builds for large applications
 
-![alt text](image-name.png)
+![alt text](https://github.com/Naveen15github/Devops-Internship-Assignment/blob/092652fa889caa9384917484720e34f51aec8f81/Screenshot%20(137).png)
+
+### Difference between Pod, Deployment and Service
+Pod
+A Pod is the smallest unit in Kubernetes
+It contains one or more containers (like a Docker container running your app)
+It can die anytime, and Kubernetes may recreate it
+
+Deployment
+A Deployment manages Pods for you
+It ensures the desired number of Pods are always running
+It handles replicas, rolling updates, rollbacks
+
+Service
+A Service gives network access to your Pods
+It provides a stable IP and DNS name even if Pods keep restarting
+Services also help with load balancing across multiple Pods
+
+Why do we need EKS (Managed Kubernetes) instead of running Kubernetes on VMs?
+Normal Kubernetes on VMs
+We must manually handle:
+Installation
+Upgrades
+Security patches
+Control plane setup
+Master node failure
+Networking
+Scaling
+
+EKS (Managed Kubernetes)
+EKS takes care of:
+Control plane setup
+API server, etcd, networking
+Auto-scaling
+Security patching
+High availability
+Integration with AWS services (IAM, ALB, VPC, CloudWatch)
+So we only manage:
+Worker nodes
+Deployments/Pods/Services
+
+
 
 
 
