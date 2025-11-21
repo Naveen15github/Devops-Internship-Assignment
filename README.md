@@ -60,6 +60,55 @@ Git added conflict markers <<<<<<<, =======, >>>>>>>
 I manually edited the file to keep the correct content and removed markers
 After resolving, I staged and committed the file to complete the merge.
 
+## Difference between Dockerfile, Docker Image, and Docker Container
+### Dockerfile
+A dockerfile is a set of instructions written by us
+it tells docker how to build an image
+think of it like a recipe
+
+### Docker Iamge
+A docker image is the output created from the dockerfile
+its like a snapshot of the application with everything installed 
+it is ready only and cannot change
+
+### Docker Container
+A docker container is a running instance of the image 
+it is the actual environment where your applications runs
+we can start stop delete and run many containers from one image
+
+### How to reduce Docker image size
+Use smaller base images like python:3.10-slim or alpine
+Avoid installing unnecessary packages
+Use a .dockerignore file to ignore unwanted files
+Use no cache when installing packages
+Use multi-stage builds for large applications
+
+![alt text](image-name.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
