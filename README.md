@@ -1,4 +1,7 @@
 # Devops-Internship-Assignment
+## Github repo with ssh authentication
+![alt text](image-name.png)
+
 ## git fetch
 Downlods the latest changes from the remote repository
 but does not update working files
